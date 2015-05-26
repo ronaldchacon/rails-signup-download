@@ -21,7 +21,12 @@ class ProductsController < ApplicationController
     else
       raise "File extension missing"
     end
-    @path = "app/views/products/#{@product_id}.#{@format}"
+    case current_user.role
+      when 'vip'
+        @path = "app/views/products/vip/#{@product_id}.#{@format}"
+      when 'user'
+        @path = "app/views/products/#{@product_id}.#{@format}"
+    end
     @file = "#{@product_id}.#{@format}"
   end
 
